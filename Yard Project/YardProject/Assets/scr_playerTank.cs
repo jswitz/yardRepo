@@ -45,7 +45,7 @@ public class scr_playerTank : MonoBehaviour
             Debug.DrawLine(goalPos, hit.point, Color.green);
             if (hit.collider.tag == "Ground")
             {
-                Debug.Log("hit");
+                //Debug.Log("hit");
             }
         }
     }
