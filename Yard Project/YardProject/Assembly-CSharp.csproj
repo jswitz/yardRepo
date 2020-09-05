@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\scr_playerMovement.cs" />
     <Compile Include="Assets\scr_playerTank.cs" />
+    <Compile Include="Assets\scr_playerToGoal.cs" />
     <None Include="Assets\AmplifyShaderEditor\Plugins\EditorResources\Previews\Preview_CosTime.shader" />
     <None Include="Assets\AmplifyShaderEditor\Plugins\EditorResources\Previews\Preview_SimpleDivideOpNode.shader" />
     <None Include="Assets\AmplifyShaderEditor\Plugins\EditorResources\Templates\Legacy\UIDefault.shader" />

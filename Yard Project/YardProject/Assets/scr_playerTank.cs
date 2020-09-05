@@ -12,6 +12,7 @@ public class scr_playerTank : MonoBehaviour
     public static GameObject[] allPlayers = new GameObject[numPlayers];
     public static Vector3 goalPos; //initially will be the centre; 0
     private Vector3 movementLimitsCentre = new Vector3 (0, 0, 0);
+    public Vector3 movementGoalPos;
 
     private void OnDrawGizmosSelected()
     {
@@ -26,14 +27,29 @@ public class scr_playerTank : MonoBehaviour
         goalPos = transform.position; //draws goal pos at centre on awake
     }
 
+    private void Start()
+    {
+        myPlayersFlock = this;
+        goalPos = this.transform.position;
+        for (int i = 0; i < numPlayers; i++)
+        {
+            Vector3 pos = this.transform.position + new Vector3(Random.Range(-movementLimits.x, movementLimits.x),
+                                                                Random.Range(-movementLimits.y, movementLimits.y),
+                                                                Random.Range(-movementLimits.z, movementLimits.z)); //spawn at random within tank
+            allPlayers[i] = (GameObject)Instantiate(playerPrefabs[i], pos, Quaternion.identity);
+            allPlayers[i].GetComponent<scr_playerToGoal>().myPlayerTank = this;
+        }
+    }
+
     void Update()
     {
         movementLimitsCentre = new Vector3(transform.position.x, transform.position.y + 5, transform.position.z); //set variable for goal pos updater Y
-        if (Random.Range(0, 10000) < 500) //randomly choose new goal pos within specified chance
+        if (Random.Range(0, 10000) < 50) //randomly choose new goal pos within specified chance
         {
             goalPos = movementLimitsCentre + new Vector3(Random.Range(-movementLimits.x, movementLimits.x),
                                                             Random.Range(-movementLimits.y, movementLimits.y),
                                                             Random.Range(-movementLimits.z, movementLimits.z));
+            //print(goalPos);
         }
 
         //Vector3 position = new Vector3(goalPos.transform.position.x, transform.position.y, transform.position.z);
@@ -45,6 +61,7 @@ public class scr_playerTank : MonoBehaviour
             Debug.DrawLine(goalPos, hit.point, Color.green);
             if (hit.collider.tag == "Ground")
             {
+                hit.point = movementGoalPos;
                 //Debug.Log("hit");
             }
         }

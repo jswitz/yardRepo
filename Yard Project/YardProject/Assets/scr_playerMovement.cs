@@ -44,7 +44,8 @@ public class scr_playerMovement : MonoBehaviour
         if ((Mathf.Abs(xVelocity) > 1.0f || Mathf.Abs(zVelocity) > 1.0f))// && anim.GetCurrentAnimatorStateInfo(0).IsTag("normal"))//&& !playerScript.isInMenu)
         {
             isWalking = true;
-            transform.Translate(characterVelocity * Time.deltaTime, cam.transform);
+            transform.Translate(characterVelocity * Time.deltaTime, Space.World); //WORKS
+            //transform.Translate(characterVelocity * Time.deltaTime, cam.position); DOESNT WORK
             //rb.velocity = characterVelocity;
 
             //character rotation
@@ -56,7 +57,7 @@ public class scr_playerMovement : MonoBehaviour
         {
             isWalking = false;
             characterVelocity = new Vector3(0, characterVelocity.y, 0);
-            transform.Translate(characterVelocity * Time.deltaTime, cam.transform);
+            transform.Translate(characterVelocity * Time.deltaTime, Space.World);
             //rb.velocity = characterVelocity;
         }
     }
