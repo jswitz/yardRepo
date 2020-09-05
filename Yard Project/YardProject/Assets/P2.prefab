@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1972707117974325497}
   - component: {fileID: 3334901473279726948}
   - component: {fileID: 1409072146776833134}
-  - component: {fileID: 8234916672976572109}
+  - component: {fileID: 3075736992499192950}
   m_Layer: 0
   m_Name: P2
   m_TagString: Player
@@ -96,7 +96,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8234916672976572109
+--- !u!114 &3075736992499192950
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,18 +105,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 5520282500387374229}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87c2328113e06b646894f6e06531d3ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 20fab53cb8e5adc46a7630ab30d0217c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myPlayerTank: {fileID: 0}
-  speed: 0.1
-  rotationSpeed: 4
-  minSpeed: 0.5
-  maxSpeed: 1
-  maxBoostSpeed: 2
-  neighbourDistance: 20
-  accelRate: 2
-  isBoosting: 0
+  playerTankScript: {fileID: 0}
+  speed: 0.5
+  rotationSpeed: 20
+  neighbourDistance: 4
+  playerObj: {fileID: 1148781842513567845, guid: 72fecb7031f1b0744bfea35505d2b33b,
+    type: 3}
+  players:
+  - {fileID: 7473942330068200942, guid: a5ebc930a1b124b499b98d5a50548c19, type: 3}
+  - {fileID: 5520282500387374229}
 --- !u!1 &6415338923638228741
 GameObject:
   m_ObjectHideFlags: 0

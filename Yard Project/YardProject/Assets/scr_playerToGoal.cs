@@ -10,12 +10,12 @@ public class scr_playerToGoal : MonoBehaviour
     public float rotationSpeed = 4.0f; //speed at which players turn
     public float minSpeed = 0.5f;
     public float maxSpeed = 1.0f;
-    public float maxBoostSpeed = 2.0f;
+    //public float maxBoostSpeed = 2.0f;
     public float neighbourDistance = 5.0f; //how close players have to be to flock, smaller number means more explusive flocks, this will be kept big, to ensure always flocking for players
     float targetSpeed = 1.0f;
-    public float accelRate = 2.0f;
+    //public float accelRate = 2.0f;
     bool turning = false;
-    public bool isBoosting = false;
+    //public bool isBoosting = false;
 
     void Start()
     {
@@ -36,7 +36,7 @@ public class scr_playerToGoal : MonoBehaviour
         else
         {
             turning = false;
-            ApplyRules();
+            //ApplyRules();
 
         }
 
@@ -47,7 +47,7 @@ public class scr_playerToGoal : MonoBehaviour
                                                   Quaternion.LookRotation(direction),
                                                   Time.deltaTime * rotationSpeed);
             speed = Random.Range(minSpeed, maxSpeed); //with new random speed
-            ApplyRules();
+            //ApplyRules();
             /*if (isBoosting == true)
             {
                 isBoosting = false; //turn of boost is is boosting
@@ -80,9 +80,13 @@ public class scr_playerToGoal : MonoBehaviour
         }*/
 
         transform.Translate(0, 0, speed * Time.deltaTime); //moves the players by speed
+        if (speed >= maxSpeed)
+        {
+            speed = maxSpeed;
+        }
     }
 
-    void ApplyRules()
+    /*void ApplyRules()
     {
         GameObject[] gos; //gos = gameobjects plural
         gos = scr_playerTank.allPlayers; //grab the player objects from the script
@@ -109,7 +113,7 @@ public class scr_playerToGoal : MonoBehaviour
                     if(dist < 5.0f) //if member was about to collide
                     {
                         vAvoid = vAvoid + (this.transform.position - go.transform.position); //calc a vector thats off in another direction
-                        Debug.Log("avoided");
+                        //Debug.Log("avoided");
                     }
 
                     scr_playerToGoal anotherFlock = go.GetComponent<scr_playerToGoal>(); //get the speeds from neighbours
@@ -129,12 +133,9 @@ public class scr_playerToGoal : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, //use this rotation slerp at rotation speed
                                                       Quaternion.LookRotation(direction),
                                                       rotationSpeed * Time.deltaTime);
+                print("working");
             }
         }
         //print(groupSize);
-        if (speed >= maxSpeed)
-        {
-            speed = maxSpeed;
-        }
-    }
+    }*/
 }

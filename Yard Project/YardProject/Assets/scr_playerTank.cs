@@ -7,10 +7,10 @@ public class scr_playerTank : MonoBehaviour
 
     public scr_playerTank myPlayersFlock; //this script
     public GameObject[] playerPrefabs; //player prefabs
-    public Vector3 movementLimits = new Vector3(5, 5, 5); //tank size
-    public static int numPlayers = 2; //number of players spawned
-    public static GameObject[] allPlayers = new GameObject[numPlayers];
-    public static Vector3 goalPos; //initially will be the centre; 0
+    public Vector3 movementLimits = new Vector3(5, 0, 5); //tank size
+    public int numPlayers = 2; //number of players spawned
+    public GameObject[] allPlayers;
+    public Vector3 goalPos; //initially will be the centre; 0
     private Vector3 movementLimitsCentre = new Vector3 (0, 0, 0);
     public Vector3 movementGoalPos;
 
@@ -25,19 +25,23 @@ public class scr_playerTank : MonoBehaviour
     private void Awake()
     {
         goalPos = transform.position; //draws goal pos at centre on awake
+        movementGoalPos = goalPos;
     }
 
     private void Start()
     {
+
         myPlayersFlock = this;
         goalPos = this.transform.position;
         for (int i = 0; i < numPlayers; i++)
         {
+            //Debug.Log(i);
             Vector3 pos = this.transform.position + new Vector3(Random.Range(-movementLimits.x, movementLimits.x),
                                                                 Random.Range(-movementLimits.y, movementLimits.y),
                                                                 Random.Range(-movementLimits.z, movementLimits.z)); //spawn at random within tank
             allPlayers[i] = (GameObject)Instantiate(playerPrefabs[i], pos, Quaternion.identity);
-            allPlayers[i].GetComponent<scr_playerToGoal>().myPlayerTank = this;
+            allPlayers[i].GetComponent<scr_movePlayers>().playerTankScript = this;
+            
         }
     }
 
@@ -61,10 +65,9 @@ public class scr_playerTank : MonoBehaviour
             Debug.DrawLine(goalPos, hit.point, Color.green);
             if (hit.collider.tag == "Ground")
             {
-                hit.point = movementGoalPos;
-                //Debug.Log("hit");
+                movementGoalPos = hit.point;
+                //Debug.Log(movementGoalPos);
             }
         }
     }
-
 }
