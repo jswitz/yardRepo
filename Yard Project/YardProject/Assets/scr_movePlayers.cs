@@ -33,7 +33,7 @@ public class scr_movePlayers : MonoBehaviour
         //Vector3 goalPos = playerObj.GetComponent<scr_playerTank>().movementGoalPos;
         Vector3 goalPos = playerTankScript.movementGoalPos;
         
-                /*foreach (GameObject go in gos)
+                foreach (GameObject go in gos)
                 { 
                     if(go != this.gameObject)
                     {
@@ -41,13 +41,13 @@ public class scr_movePlayers : MonoBehaviour
                         if (dist <= neighbourDistance)
                         {
                             vAvoid = vAvoid + (this.transform.position - go.transform.position);
-                            //Debug.Log("avoided");
+                            Debug.Log("avoided");
                         }
                     }
-                }*/
+                }
 
                 vCentre = vCentre + (goalPos - this.transform.position);
-                print(goalPos);
+                //print(goalPos);
                 Vector3 direction = (vCentre + vAvoid) - transform.position;
                 transform.rotation = Quaternion.Slerp(transform.rotation,
                                                       Quaternion.LookRotation(direction),
