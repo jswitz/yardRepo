@@ -11,10 +11,10 @@ public class scr_movePlayers : MonoBehaviour
     public float neighbourDistance = 4.0f;
     public GameObject playerObj;
     public GameObject[] players;
-    
+
     void Start()
     {
-        
+
     }
 
     void Update()
@@ -25,32 +25,48 @@ public class scr_movePlayers : MonoBehaviour
     void ApplyRules()
     {
         GameObject[] gos;
-        gos = players;
+        gos = playerTankScript.allPlayers;
 
         Vector3 vCentre = Vector3.zero;
         Vector3 vAvoid = Vector3.zero;
-        float dist;
-        //Vector3 goalPos = playerObj.GetComponent<scr_playerTank>().movementGoalPos;
         Vector3 goalPos = playerTankScript.movementGoalPos;
-        
-                foreach (GameObject go in gos)
-                { 
-                    if(go != this.gameObject)
+
+        float dist;
+        int groupSize = 0;
+
+        foreach (GameObject go in gos)
+        {
+            if (go != this.gameObject)
+            {
+                dist = Vector3.Distance(go.transform.position, this.transform.position);
+                //Debug.Log(dist);
+                if (dist <= neighbourDistance)
+                {
+                    vCentre += go.transform.position;
+                    groupSize++;
+                    if (dist < 3.0f)
                     {
-                        dist = Vector3.Distance(go.transform.position, this.transform.position);
-                        if (dist <= neighbourDistance)
-                        {
-                            vAvoid = vAvoid + (this.transform.position - go.transform.position);
-                            Debug.Log("avoided");
-                        }
+                        vAvoid = vAvoid + (this.transform.position - go.transform.position);
+                        Debug.Log(go.transform.position);
+                        //Debug.Log(vAvoid);
                     }
                 }
+            }
+        }
 
-                vCentre = vCentre + (goalPos - this.transform.position);
-                //print(goalPos);
-                Vector3 direction = (vCentre + vAvoid) - transform.position;
-                transform.rotation = Quaternion.Slerp(transform.rotation,
-                                                      Quaternion.LookRotation(direction),
-                                                      rotationSpeed * Time.deltaTime);
+        vCentre = vCentre / groupSize + (goalPos - this.transform.position); //calc average centre of the group
+        
+        //print(goalpos);
+        Vector3 direction = (vCentre + (vAvoid * 1.5f )) - transform.position; //get the direction the character needs to turn into
+        direction.y = 0; //make sure no vertical allignment is taken into account
+        if(direction != Vector3.zero)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation,
+                                                  Quaternion.LookRotation(direction),
+                                                  rotationSpeed * Time.deltaTime);
+        }
+
+        transform.Translate(0, 0, Time.deltaTime * speed);
+        //print(groupSize);
     }
 }
