@@ -48,7 +48,7 @@ public class scr_playerTank : MonoBehaviour
     void Update()
     {
         movementLimitsCentre = new Vector3(transform.position.x, transform.position.y + 5, transform.position.z); //set variable for goal pos updater Y
-        if (Random.Range(0, 10000) < 5) //randomly choose new goal pos within specified chance
+        if (Random.Range(0, 1000) < 5) //randomly choose new goal pos within specified chance
         {
             goalPos = movementLimitsCentre + new Vector3(Random.Range(-movementLimits.x, movementLimits.x),
                                                             Random.Range(-movementLimits.y, movementLimits.y),

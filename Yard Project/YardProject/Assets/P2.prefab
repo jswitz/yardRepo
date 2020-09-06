@@ -111,8 +111,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTankScript: {fileID: 0}
-  speed: 3
-  rotationSpeed: 5
+  speed: 1
+  rotationSpeed: 3
   neighbourDistance: 50
   playerObj: {fileID: 1148781842513567845, guid: 72fecb7031f1b0744bfea35505d2b33b,
     type: 3}

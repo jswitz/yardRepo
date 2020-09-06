@@ -7,7 +7,7 @@ public class scr_playerMovement : MonoBehaviour
 
     public Camera cam;
 
-    private float moveSpeed_now, moveSpeed_normal = 180.0f;
+    private float moveSpeed_now, moveSpeed_normal = 60.0f;
     private string moveAxis_x, moveAxis_z;
     public bool isWalking = false;
     private Vector3 characterVelocity;
@@ -37,6 +37,8 @@ public class scr_playerMovement : MonoBehaviour
         Vector3 zVector = cam.transform.forward * zVelocity;
 
         characterVelocity = xVector + zVector;
+        characterVelocity.y = 0;
+
 
         //_vector.y = rb.velocity.y;
 
@@ -44,7 +46,8 @@ public class scr_playerMovement : MonoBehaviour
         if ((Mathf.Abs(xVelocity) > 1.0f || Mathf.Abs(zVelocity) > 1.0f))// && anim.GetCurrentAnimatorStateInfo(0).IsTag("normal"))//&& !playerScript.isInMenu)
         {
             isWalking = true;
-            transform.Translate(characterVelocity * Time.deltaTime, Space.World); //WORKS
+            transform.Translate(characterVelocity * Time.deltaTime, Space.World);
+            
             //transform.Translate(characterVelocity * Time.deltaTime, cam.position); DOESNT WORK
             //rb.velocity = characterVelocity;
 
@@ -58,6 +61,7 @@ public class scr_playerMovement : MonoBehaviour
             isWalking = false;
             characterVelocity = new Vector3(0, characterVelocity.y, 0);
             transform.Translate(characterVelocity * Time.deltaTime, Space.World);
+            characterVelocity.y = 0;
             //rb.velocity = characterVelocity;
         }
     }
