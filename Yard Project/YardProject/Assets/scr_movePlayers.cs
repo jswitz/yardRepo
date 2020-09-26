@@ -4,17 +4,22 @@ using UnityEngine;
 
 public class scr_movePlayers : MonoBehaviour
 {
-
+    CharacterController controller;
     public scr_playerTank playerTankScript;
     public float speed = 0.5f;
     public float rotationSpeed = 20.0f;
     public float neighbourDistance = 4.0f;
     public GameObject playerObj;
     public GameObject[] players;
+    public float moveSpeedMultiplier = 2.0f;
+    public Vector3 desiredMoveDirection;
+    public bool isGrounded;
+    private float verticalVel;
+    private Vector3 moveVector;
 
     void Start()
     {
-
+        controller = GetComponent<CharacterController>();
     }
 
     void Update()
@@ -24,12 +29,14 @@ public class scr_movePlayers : MonoBehaviour
 
     void ApplyRules()
     {
+        
         GameObject[] gos;
         gos = playerTankScript.allPlayers;
 
         Vector3 vCentre = Vector3.zero;
         Vector3 vAvoid = Vector3.zero;
         Vector3 goalPos = playerTankScript.movementGoalPos;
+
 
         float dist;
         int groupSize = 0;
@@ -66,7 +73,21 @@ public class scr_movePlayers : MonoBehaviour
                                                   rotationSpeed * Time.deltaTime);
         }
 
-        transform.Translate(0, 0, Time.deltaTime * speed);
+        //transform.Translate(0, 0, Time.deltaTime * speed);
+        //desiredMoveDirection = forward;
+        //ground
+        isGrounded = controller.isGrounded;
+        if (isGrounded)
+        {
+            verticalVel -= 0;
+        }
+        else
+        {
+            verticalVel -= 2;
+        }
+        moveVector = new Vector3(0, verticalVel, 0);
+        controller.Move(moveVector);
+        controller.Move(direction * Time.deltaTime * moveSpeedMultiplier);
         //print(groupSize);
     }
 }
